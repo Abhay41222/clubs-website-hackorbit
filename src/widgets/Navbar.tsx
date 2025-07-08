@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import SearchBar from "../widgets/SearchBar";
-import { Link } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
+import { Link, useNavigate } from "react-router-dom";
 import { User } from "lucide-react";
 
 const navlinks = [
@@ -11,6 +11,8 @@ const navlinks = [
 ];
 
 function Navbar() {
+    const navigate = useNavigate();
+
     return (
         <motion.nav
             initial={{ y: -100, opacity: 0 }}
@@ -19,10 +21,7 @@ function Navbar() {
             className="w-full bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100 px-6 py-4 flex items-center justify-between"
         >
             {/* Logo */}
-            <motion.div
-                whileHover={{ scale: 1.025 }}
-                whileTap={{ scale: 0.975 }}
-            >
+            <motion.div whileHover={{ scale: 1.025 }} whileTap={{ scale: 0.975 }}>
                 <Link
                     to="/"
                     className="flex items-center gap-2 font-bold text-xl tracking-tight text-blue-600 hover:text-blue-700 transition-colors"
@@ -41,13 +40,13 @@ function Navbar() {
                 </Link>
             </motion.div>
 
-            <ul
-                className="flex gap-6 text-sm font-medium text-gray-600"
-            >
+            {/* Navigation Links */}
+
+            <ul className="flex gap-6 text-sm font-medium text-gray-600">
                 {navlinks.map((link) => (
-                    <motion.li 
-                    key={link.href}
-                    whileHover={{ scale: 1.05, translateY: -1 }}
+                    <motion.li
+                        key={link.href}
+                        whileHover={{ scale: 1.05, translateY: -1 }}
                     >
                         <Link
                             to={link.href}
@@ -60,7 +59,7 @@ function Navbar() {
             </ul>
 
 
-            {/* Search Bar */}
+            {/* Right Section */}
             <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -68,11 +67,11 @@ function Navbar() {
                 className="flex items-center gap-4"
             >
                 <SearchBar />
-                
-                {/* Profile Icon */}
+                {/* User Icon */}
                 <motion.div
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
+                    onClick={() => navigate("/signin")}
                     className="cursor-pointer"
                 >
                     <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm hover:shadow-md">

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Search } from "lucide-react";
 
 function SearchBar() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -25,16 +26,16 @@ function SearchBar() {
 
     return (
         <div className="flex items-center gap-2">
-            {/* Search Toggle Button */}
-            <motion.button
-                onClick={handleSearchToggle}
+            <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="text-gray-600 hover:text-blue-600 transition-colors text-lg focus:outline-none cursor-pointer"
-                title="Search"
+                onClick={handleSearchToggle}
+                className="cursor-pointer"
             >
-                🔍
-            </motion.button>
+                <div className="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center text-gray-700 transition-all duration-200">
+                    <Search size={16} />
+                </div>
+            </motion.div>
 
             {/* Search Input Form */}
             <motion.form
@@ -45,15 +46,14 @@ function SearchBar() {
                     opacity: isSearchOpen ? 1 : 0,
                 }}
                 transition={{ duration: 0.3 }}
-                className={`overflow-hidden flex items-center gap-2 bg-white border border-gray-200 rounded-md px-2 py-1 shadow-sm transition-all ${isSearchOpen ? "pl-3 pr-2" : "p-0"
-                    }`}
+                className={`overflow-hidden flex items-center gap-2 bg-white border border-gray-200 rounded-md py-1 shadow-sm transition-all ${isSearchOpen ? "pl-2 pr-2" : "p-0"}`}
             >
                 <input
                     id="search-input"
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="Search..."
+                    placeholder="Search Events or Clubs..."
                     className="w-full bg-transparent outline-none text-sm placeholder-gray-400 text-gray-700"
                 />
                 <button

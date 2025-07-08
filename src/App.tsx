@@ -3,8 +3,9 @@ import Home from "./public/Home";
 import Clubs from "./public/Clubs";
 import Events from "./public/Events";
 import About from "./public/About";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Navbar from "./widgets/Navbar";
+import Footer from "./widgets/Footer";
+import SignIn from "./public/SignIn";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/clubs" element={<Clubs/>}/>
           <Route path="/events" element={<Events/>}/>
           <Route path="/about" element={<About/>}/>
+          <Route path="/signin" element={<SignIn/>}/>
         </Routes>
         <Footer/>
       </Router>
