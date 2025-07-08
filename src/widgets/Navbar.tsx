@@ -18,67 +18,62 @@ function Navbar() {
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="w-full bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100 px-6 py-4 flex items-center justify-between"
+            className="w-full bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100 px-6 py-4"
         >
-            {/* Logo */}
-            <motion.div whileHover={{ scale: 1.025 }} whileTap={{ scale: 0.975 }}>
-                <Link
-                    to="/"
-                    className="flex items-center gap-2 font-bold text-xl tracking-tight text-blue-600 hover:text-blue-700 transition-colors"
-                >
-                    <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 28 28"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+            <div className="flex items-center justify-between w-full">
+                {/* Left: Logo */}
+                <motion.div whileHover={{ scale: 1.025 }} whileTap={{ scale: 0.975 }}>
+                    <Link
+                        to="/"
+                        className="flex items-center gap-2 font-bold text-xl tracking-tight text-blue-600 hover:text-blue-700 transition-colors"
+                        aria-label="Campus Connect Home"
                     >
-                        <circle cx="14" cy="14" r="13" stroke="#2563eb" strokeWidth="2" />
-                        <circle cx="14" cy="14" r="6" fill="#2563eb" />
-                    </svg>
-                    Campus Connect
-                </Link>
-            </motion.div>
-
-            {/* Navigation Links */}
-
-            <ul className="flex gap-6 text-sm font-medium text-gray-600">
-                {navlinks.map((link) => (
-                    <motion.li
-                        key={link.href}
-                        whileHover={{ scale: 1.05, translateY: -1 }}
-                    >
-                        <Link
-                            to={link.href}
-                            className="transition-all duration-200 hover:text-blue-600 hover:-translate-y-0.5"
+                        <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 28 28"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
                         >
-                            {link.label}
-                        </Link>
-                    </motion.li>
-                ))}
-            </ul>
-
-
-            {/* Right Section */}
-            <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-                className="flex items-center gap-4"
-            >
-                <SearchBar />
-                {/* User Icon */}
-                <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => navigate("/signin")}
-                    className="cursor-pointer"
-                >
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm hover:shadow-md">
-                        <User size={16} />
-                    </div>
+                            <circle cx="14" cy="14" r="13" stroke="#2563eb" strokeWidth="2" />
+                            <circle cx="14" cy="14" r="6" fill="#2563eb" />
+                        </svg>
+                        Campus Connect
+                    </Link>
                 </motion.div>
-            </motion.div>
+
+                {/* Center: Navlinks */}
+                <ul className="flex gap-6 text-sm font-medium text-gray-600 justify-center flex-1">
+                    {navlinks.map((link) => (
+                        <motion.li
+                            key={link.href}
+                            whileHover={{ scale: 1.05, translateY: -1 }}
+                        >
+                            <Link
+                                to={link.href}
+                                className="transition-all duration-200 hover:text-blue-600 hover:-translate-y-0.5"
+                            >
+                                {link.label}
+                            </Link>
+                        </motion.li>
+                    ))}
+                </ul>
+
+                {/* Right: SearchBar & User */}
+                <div className="flex items-center" style={{ minWidth: "13rem" }}>
+                    <SearchBar />
+                    <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => navigate("/signin")}
+                        className="cursor-pointer"
+                    >
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm hover:shadow-md">
+                            <User size={16} />
+                        </div>
+                    </motion.div>
+                </div>
+            </div>
         </motion.nav>
     );
 }

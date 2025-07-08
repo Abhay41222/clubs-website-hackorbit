@@ -26,3 +26,6 @@ dist-ssr
 # enviornment variables
 .env
 .env.*
+
+# temporary files
+mock_data

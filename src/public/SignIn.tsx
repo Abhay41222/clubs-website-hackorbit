@@ -24,15 +24,16 @@ function SignIn() {
         console.log(isLogin ? "Login" : "Signup", formData);
     };
 
+    // Height estimate: sign up adds two fields ~70-90px each + spacing
+    // You can fine-tune min-h-[540px] based on your actual field heights
     return (
-        <div className="min-h-screen bg-gray-50 flex justify-center items-center px-4">
+        <div className="min-h-screen bg-gray-50 flex justify-center px-4 py-16">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 className="w-full max-w-md"
             >
-                {/* Header */}
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">Campus Connect</h1>
                     <p className="text-gray-600">
@@ -40,28 +41,30 @@ function SignIn() {
                     </p>
                 </div>
 
-                {/* Form Container with fixed height */}
+                {/* Set the min-h to the max needed (for signup) */}
                 <motion.div
-                    layout="position"
-                    className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100"
+                    layout
+                    className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 min-h-[540px] flex flex-col justify-between"
                 >
                     {/* Toggle Buttons */}
                     <div className="flex bg-gray-100 rounded-xl p-1 mb-6">
                         <button
                             onClick={() => setIsLogin(true)}
                             className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all duration-200 ${isLogin
-                                    ? "bg-white text-blue-600 shadow-sm"
-                                    : "text-gray-600 hover:text-gray-900"
+                                ? "bg-white text-blue-600 shadow-sm"
+                                : "text-gray-600 hover:text-gray-900"
                                 }`}
+                            type="button"
                         >
                             Sign In
                         </button>
                         <button
                             onClick={() => setIsLogin(false)}
                             className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all duration-200 ${!isLogin
-                                    ? "bg-white text-blue-600 shadow-sm"
-                                    : "text-gray-600 hover:text-gray-900"
+                                ? "bg-white text-blue-600 shadow-sm"
+                                : "text-gray-600 hover:text-gray-900"
                                 }`}
+                            type="button"
                         >
                             Sign Up
                         </button>
@@ -216,7 +219,6 @@ function SignIn() {
                             </svg>
                             Continue with Google
                         </button>
-
                     </div>
                 </motion.div>
             </motion.div>
