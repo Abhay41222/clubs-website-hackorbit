@@ -26,3 +26,6 @@ dist-ssr
 # enviornment variables
 .env
 .env.*
+
+# remove it later
+vite.config.ts
