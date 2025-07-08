@@ -1,37 +1,10 @@
-// function Events() {
-//     return (
-//         <>
-//             <div>Welcome to Events Page!</div>
-//         </>
-//     )
-// }
-
-// export default Events;
-
-import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import Typed from "typed.js";
 import { Calendar, Clock, MapPin, Tag, Flame } from "lucide-react";
 import { mockEvents } from "../mock_data/mockEventData";
 import type { Event } from "../mock_data/mockEventData";
 
 export default function Events() {
   const events: Event[] = mockEvents();
-  const headingRef = useRef(null);
-
-  useEffect(() => {
-    const typed = new Typed(headingRef.current, {
-      strings: ["Events", "Competitions", "Workshops", "Talks"],
-      typeSpeed: 60,
-      backSpeed: 40,
-      backDelay: 1600,
-      loop: true,
-      showCursor: true,
-      cursorChar: "|",
-    });
-
-    return () => typed.destroy();
-  }, []);
 
   return (
     <div className="min-h-screen py-20 px-6 bg-gray-50">
@@ -43,10 +16,11 @@ export default function Events() {
       >
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900">
-            Explore <span ref={headingRef} className="text-blue-600" />
+            Explore <span className="text-blue-600">Events</span>
           </h1>
-          <p className="text-gray-600 mt-3 text-lg">
-            Stay updated on upcoming campus events and experiences.
+          <p className="mt-3 text-lg text-gray-600 min-h-[30px]">
+            <span>
+              Don't miss out on exciting workshops and competitions, Be part of inspiring talks, festivals, and student-led fun.</span>
           </p>
         </div>
 

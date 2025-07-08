@@ -1,31 +1,10 @@
-import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import Typed from "typed.js";
 import { CheckCircle2 } from "lucide-react";
 import { mockClubs } from "../mock_data/mockClubData";
 import type { Club } from "../mock_data/mockClubData";
 
 export default function Clubs() {
   const clubs: Club[] = mockClubs();
-  const typedRef = useRef(null);
-
-  useEffect(() => {
-    const typed = new Typed(typedRef.current, {
-      strings: [
-        "Find your vibe, join a tribe.",
-        "Explore your interests beyond classrooms.",
-        "Discover communities that match your passion.",
-      ],
-      typeSpeed: 50,
-      backSpeed: 30,
-      backDelay: 1800,
-      loop: true,
-      showCursor: true,
-      cursorChar: "|",
-    });
-
-    return () => typed.destroy();
-  }, []);
 
   return (
     <div className="min-h-screen py-20 px-6 bg-gray-50">
@@ -42,10 +21,10 @@ export default function Clubs() {
 
           {/* ✨ Animated line below heading */}
           <h1
-            ref={typedRef}
             className="text-lg text-gray-600 mt-3 min-h-[32px] font-medium"
-          />
-
+          >
+            Explore your interests beyond classrooms, Discover communities that match your passion.
+          </h1>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">

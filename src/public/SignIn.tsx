@@ -53,7 +53,7 @@ function SignIn() {
                             className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all duration-200 ${isLogin
                                 ? "bg-white text-blue-600 shadow-sm"
                                 : "text-gray-600 hover:text-gray-900"
-                                }`}
+                                } cursor-pointer`}
                             type="button"
                         >
                             Sign In
@@ -63,7 +63,7 @@ function SignIn() {
                             className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all duration-200 ${!isLogin
                                 ? "bg-white text-blue-600 shadow-sm"
                                 : "text-gray-600 hover:text-gray-900"
-                                }`}
+                                } cursor-pointer`}
                             type="button"
                         >
                             Sign Up
@@ -140,7 +140,7 @@ function SignIn() {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
                                 >
                                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                                 </button>
@@ -194,7 +194,7 @@ function SignIn() {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             type="submit"
-                            className="w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl hover:bg-blue-700 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                            className="w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl hover:bg-blue-700 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl cursor-pointer"
                         >
                             {isLogin ? "Sign In" : "Create Account"}
                             <ArrowRight size={20} />
@@ -210,7 +210,7 @@ function SignIn() {
 
                     {/* Social Login Buttons */}
                     <div className="space-y-3">
-                        <button className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">
+                        <button className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
                             <svg className="w-5 h-5" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
                                 <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
