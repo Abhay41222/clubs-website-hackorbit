@@ -27,5 +27,6 @@ dist-ssr
 .env
 .env.*
 
-# remove it later
+# temporary files
 vite.config.ts
+mock_data
