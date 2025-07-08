@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import SearchBar from "../widgets/SearchBar";
 import { Link } from "react-router-dom";
+import { User } from "lucide-react";
 
 const navlinks = [
-    { href: "/home", label: "Home" },
+    { href: "/", label: "Home" },
     { href: "/clubs", label: "Clubs" },
     { href: "/events", label: "Events" },
     { href: "/about", label: "About" },
@@ -19,16 +20,16 @@ function Navbar() {
         >
             {/* Logo */}
             <motion.div
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.025 }}
+                whileTap={{ scale: 0.975 }}
             >
                 <Link
                     to="/"
                     className="flex items-center gap-2 font-bold text-xl tracking-tight text-blue-600 hover:text-blue-700 transition-colors"
                 >
                     <svg
-                        width="28"
-                        height="28"
+                        width="20"
+                        height="20"
                         viewBox="0 0 28 28"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -40,20 +41,17 @@ function Navbar() {
                 </Link>
             </motion.div>
 
-            {/* Navigation Links */}
-            <ul className="flex gap-6 text-sm font-medium text-gray-600">
-                {navlinks.map((link, index) => (
-                    <motion.li
-                        key={link.href}
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 + index * 0.1, duration: 0.4 }}
-                        whileHover={{ y: -2, scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+            <ul
+                className="flex gap-6 text-sm font-medium text-gray-600"
+            >
+                {navlinks.map((link) => (
+                    <motion.li 
+                    key={link.href}
+                    whileHover={{ scale: 1.05, translateY: -1 }}
                     >
                         <Link
                             to={link.href}
-                            className="transition-colors hover:text-blue-600"
+                            className="transition-all duration-200 hover:text-blue-600 hover:-translate-y-0.5"
                         >
                             {link.label}
                         </Link>
@@ -61,13 +59,26 @@ function Navbar() {
                 ))}
             </ul>
 
+
             {/* Search Bar */}
             <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
+                transition={{ duration: 0.5, delay: 0.25 }}
+                className="flex items-center gap-4"
             >
                 <SearchBar />
+                
+                {/* Profile Icon */}
+                <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="cursor-pointer"
+                >
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm hover:shadow-md">
+                        <User size={16} />
+                    </div>
+                </motion.div>
             </motion.div>
         </motion.nav>
     );
