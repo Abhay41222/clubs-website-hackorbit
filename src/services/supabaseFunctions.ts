@@ -23,8 +23,8 @@ export const resendVerificationEmail = async (email: string) => {
 
 export const isProfileComplete = async (userId: string) => {
   const { data, error } = await supabase
-    .from('profiles')
-    .select('isProfileComplete')
+    .from('users')
+    .select('is_profile_complete')
     .eq('id', userId)
     .maybeSingle();
 
@@ -33,5 +33,36 @@ export const isProfileComplete = async (userId: string) => {
     return false;
   }
 
-  return data?.isProfileComplete ?? false;
+  return data?.is_profile_complete ?? false;
 }
+
+// Create a user profile in the database
+export const createUserProfile = async (userId: string, userData: any) => {
+  const { data, error } = await supabase
+    .from('users')
+    .insert([{
+      id: userId,
+      ...userData,
+      is_profile_complete: true,
+      created_at: new Date().toISOString()
+    }])
+    .select();
+  
+  return { data, error };
+};
+
+// Check if user exists in the database
+export const checkUserExists = async (userId: string) => {
+  const { data, error } = await supabase
+    .from('users')
+    .select('id')
+    .eq('id', userId)
+    .maybeSingle();
+  
+  if (error) {
+    console.error("Error checking if user exists:", error);
+    return false;
+  }
+  
+  return data !== null;
+};

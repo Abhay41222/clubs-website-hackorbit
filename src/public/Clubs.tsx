@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
-import { CheckCircle2 } from "lucide-react";
-import { mockClubs } from "../mock_data/mockClubData";
+import { CheckCircle2, Loader2 } from "lucide-react";
+import { useClubs } from "../hooks/useSupabase";
+// import { Link } from "react-router-dom";
 import type { Club } from "../mock_data/mockClubData";
 
 export default function Clubs() {
-  const clubs: Club[] = mockClubs();
+  const { data: clubs, isLoading, isError } = useClubs();
 
   return (
     <div className="min-h-screen py-20 px-6 bg-gray-50">

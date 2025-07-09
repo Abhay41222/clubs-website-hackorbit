@@ -8,6 +8,7 @@ import Events from "./public/Events";
 import About from "./public/About";
 import SignIn from "./public/SignIn";
 import ClubPage from "./public/ClubPage";
+import EventPage from "./public/EventPage";
 import NotFound from "./public/NotFound";
 
 import Profile from "./protected/Profile";
@@ -34,6 +35,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/clubs" element={<Clubs />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/events/:eventId" element={<EventPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/confirm" element={<Confirm />} />
           <Route path="clubs/:clubId" element={<ClubPage />} />
@@ -45,9 +47,12 @@ export default function App() {
 
         {/* Protected Routes */}
         <Route element={<UserRequired />}>
+          {/* Routes that don't require profile completion */}
           <Route element={<RequireProfileIncomplete />}>
             <Route path="/fill-details" element={<FillDetails />} />
           </Route>
+          
+          {/* Routes that require profile completion */}
           <Route element={<RequireProfileComplete />}>
             <Route path="/profile" element={<Profile />} />
             <Route path="/dashboard" element={<Dashboard />} />

@@ -8,10 +8,10 @@ export function UserNotRequired() {
 
 export function UserRequired() {
     const { user } = useAuth();
-    return user ? <Outlet /> : <Navigate to="sign-in" replace />;
+    return user ? <Outlet /> : <Navigate to="/sign-in" replace />;
 }
 
 export function UserCheck (){
     const { user } = useAuth();
-    return user ? <Navigate to="dashboard" replace/> : <Outlet/>;
+    return user ? <Navigate to="/dashboard" replace/> : <Outlet/>;
 }

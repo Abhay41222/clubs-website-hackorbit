@@ -30,3 +30,4 @@ dist-ssr
 # temporary files
 vite.config.ts
 mock_data
+api

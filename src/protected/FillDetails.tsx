@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Save } from "lucide-react";
+import { createUserProfile, checkUserExists } from "../services/supabaseFunctions";
+import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 interface newErrorsProps {
   name?: string;
@@ -11,8 +14,11 @@ interface newErrorsProps {
 }
 
 export default function FillDetails() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    email: "",
+    email: user?.email || "",
     name: "",
     enrollment: "",
     branch: "",
@@ -84,11 +90,51 @@ export default function FillDetails() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Add effect to pre-fill email if available
+  useEffect(() => {
+    if (user?.email) {
+      setFormData(prev => ({
+        ...prev,
+        email: user.email || ""
+      }));
+    }
+  }, [user]);
+  
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateForm()) {
-      console.log("Final data:", formData);
+    if (!validateForm() || !user?.id) return;
+    
+    setIsSubmitting(true);
+    
+    try {
+      // Check if user already exists in the database
+      const exists = await checkUserExists(user.id);
+      
+      // Create or update user profile
+      const { error } = await createUserProfile(user.id, {
+        email: formData.email,
+        name: formData.name,
+        enrollment_number: formData.enrollment,
+        branch: formData.branch,
+        year: formData.year,
+        gender: formData.gender,
+        role: ["user"],
+        social_links: formData.social_links,
+      });
+      
+      if (error) {
+        console.error("Error saving profile:", error);
+        alert("Failed to save profile details. Please try again.");
+        return;
+      }
+      
       alert("Profile details saved successfully!");
+      navigate('/profile');
+    } catch (error) {
+      console.error("Error in profile submission:", error);
+      alert("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -221,10 +267,15 @@ export default function FillDetails() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-medium flex items-center justify-center gap-2"
+            disabled={isSubmitting}
+            className={`w-full mt-6 ${isSubmitting ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'} text-white py-2 rounded font-medium flex items-center justify-center gap-2 cursor-pointer`}
           >
-            <Save size={18} />
-            Save Details
+            {isSubmitting ? 'Saving...' : (
+              <>
+                <Save size={18} />
+                Save Details
+              </>
+            )}
           </button>
         </form>
       </div>
