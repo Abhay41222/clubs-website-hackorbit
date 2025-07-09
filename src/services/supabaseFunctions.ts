@@ -20,3 +20,18 @@ export const resendVerificationEmail = async (email: string) => {
   });
   return { data, error };
 };
+
+export const isProfileComplete = async (userId: string) => {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('isProfileComplete')
+    .eq('id', userId)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Error checking profile completeness:", error);
+    return false;
+  }
+
+  return data?.isProfileComplete ?? false;
+}
