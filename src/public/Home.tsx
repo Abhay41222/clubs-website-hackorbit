@@ -21,7 +21,7 @@ function Home() {
     }, []);
 
     return (
-        <main className="flex flex-col items-center justify-center min-h-screen bg-white relative overflow-hidden px-4">
+        <main className="flex flex-col items-center justify-center min-h-screen bg-white overflow-hidden px-4">
             {/* Soft animated background shape */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.92 }}
@@ -41,7 +41,7 @@ function Home() {
                 initial={{ opacity: 0, y: 36 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
-                className="w-full max-w-xl flex flex-col items-center text-center gap-7 pt-32 pb-40 z-10"
+                className="w-full max-w-xl flex flex-col items-center text-center gap-7 pt-32 pb-40 z-1"
             >
                 <span className="text-xs sm:text-sm uppercase tracking-wide text-blue-600 font-medium">
                     Discover Your

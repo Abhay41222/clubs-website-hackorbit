@@ -26,7 +26,3 @@ dist-ssr
 # enviornment variables
 .env
 .env.*
-
-# temporary files
-vite.config.ts
-mock_data
