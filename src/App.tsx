@@ -8,7 +8,7 @@ import Events from "./public/Events";
 import About from "./public/About";
 import SignIn from "./public/SignIn";
 import ClubPage from "./public/ClubPage";
-import EventPage from "./public/EventPage";
+import EventPage from "../../EventPage";
 import NotFound from "./public/NotFound";
 
 import Profile from "./protected/Profile";

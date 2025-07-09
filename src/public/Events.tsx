@@ -1,10 +1,20 @@
 import { motion } from "framer-motion";
 import { Calendar, Clock, MapPin, Tag, Flame, Loader2 } from "lucide-react";
-import { useEvents } from "../hooks/useSupabase";
 import { Link } from "react-router-dom";
+import useSWR from "swr";
+import { getEnv } from "../utils/getEnv";
+
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("Failed to fetch");
+  return res.json();
+};
 
 export default function Events() {
-  const { data: events, isLoading, isError } = useEvents();
+  const { data: events, error, isLoading } = useSWR(
+    `${getEnv("VITE_SERVER_URL")}/events/getAllEvents`,
+    fetcher
+  );
 
   return (
     <div className="min-h-screen py-20 px-6 bg-gray-50">
@@ -20,7 +30,8 @@ export default function Events() {
           </h1>
           <p className="mt-3 text-lg text-gray-600 min-h-[30px]">
             <span>
-              Don't miss out on exciting workshops and competitions, Be part of inspiring talks, festivals, and student-led fun.</span>
+              Don't miss out on exciting workshops and competitions. Be part of inspiring talks, festivals, and student-led fun.
+            </span>
           </p>
         </div>
 
@@ -28,7 +39,7 @@ export default function Events() {
           <div className="flex justify-center items-center h-64">
             <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
           </div>
-        ) : isError ? (
+        ) : error ? (
           <div className="text-center py-12">
             <p className="text-red-500">Error loading events. Please try again later.</p>
           </div>

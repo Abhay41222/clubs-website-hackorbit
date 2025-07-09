@@ -116,8 +116,7 @@ function About() {
                             </p>
                             <p className="text-lg text-gray-700 leading-relaxed">
                                 Fast forward to our sophomore year hackathon — we decided to build the solution we 
-                                wished existed. ByteBenders was born from late-night coding sessions, way too much 
-                                pizza, and a shared belief that student life deserves better infrastructure.
+                                wished existed. 
                             </p>
                         </div>
                         <div className="bg-gray-50 rounded-xl p-8 text-center">
@@ -211,16 +210,16 @@ function About() {
                             <Mail size={20} />
                             Get in Touch
                         </button>
-                        <button className="flex items-center justify-center gap-2 border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        {/* <button className="flex items-center justify-center gap-2 border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors">
                             <Github size={20} />
                             View Our Code
-                        </button>
+                        </button> */}
                     </div>
                     
                     <div className="flex justify-center gap-6">
                         <a href="#" className="text-gray-400 hover:text-blue-600 transition-colors">
                             <Github size={24} />
-                        </a>
+                        </a>    
                         <a href="#" className="text-gray-400 hover:text-blue-600 transition-colors">
                             <Linkedin size={24} />
                         </a>
