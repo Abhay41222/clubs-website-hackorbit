@@ -65,7 +65,7 @@ function Navbar() {
                     <motion.div
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        onClick={() => navigate("/signin")}
+                        onClick={() => navigate("/sign-in")}
                         className="cursor-pointer"
                     >
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm hover:shadow-md">
