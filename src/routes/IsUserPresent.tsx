@@ -1,13 +1,17 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+
 
 export function UserNotRequired() {
-    return <Outlet/>;
+    return <Outlet />;
 }
 
 export function UserRequired() {
-    {/* Check if user is present or not with actual logic */}
-    const user = true;
-    
-    return user ? <Outlet/> : <Navigate to="sign-in" replace/>;
+    const { user } = useAuth();
+    return user ? <Outlet /> : <Navigate to="sign-in" replace />;
 }
 
+export function UserCheck (){
+    const { user } = useAuth();
+    return user ? <Navigate to="dashboard" replace/> : <Outlet/>;
+}

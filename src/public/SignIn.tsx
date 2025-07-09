@@ -1,10 +1,15 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight } from "lucide-react";
+import { signIn, signUp } from "../services/supabaseFunctions";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
+    const navigate = useNavigate();
     const [isLogin, setIsLogin] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
+    const [emailError, setEmailError] = useState("");
+    const [error, setError] = useState<string | null>(null);
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -17,12 +22,60 @@ function SignIn() {
             ...formData,
             [e.target.name]: e.target.value
         });
+
+        // Clear email error when user starts typing
+        if (e.target.name === "email" && emailError) {
+            // logic if you check for email domain
+        }
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    // Email validation function
+    // const validateEmail = (email: string): boolean => {
+    //     const allowedDomain = "@mitsgwl.ac.in";
+    //     if (!email.endsWith(allowedDomain)) {
+    //         setEmailError(`Only ${allowedDomain} email addresses are allowed for signup`);
+    //         return false;
+    //     }
+    //     return true;
+    // };
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(isLogin ? "Login" : "Signup", formData);
+
+        // Validate email domain for signup
+        // if (!validateEmail(formData.email)) {
+        //     setEmailError("Invalid email address only mits students allowed");
+        //     return;
+        // }
+
+        // Validate password confirmation for signup
+        if (!isLogin && formData.password !== formData.confirmPassword) {
+            setError('Passwords do not match');
+            return;
+        }
+
+        try {
+            const { data, error } = isLogin
+                ? await signIn(formData.email, formData.password)
+                : await signUp(formData.email, formData.password);
+
+            if (error) {
+                setError(error.message);
+                console.error('Auth error:', error.message);
+            } else {
+                // console.log('Auth success:', data);
+                if (isLogin) navigate("/dashboard");
+                else navigate("/confirm", { state: { email: formData.email } });
+            }
+        } catch (e) {
+            setError(`Not able to ${isLogin ? 'login' : 'signup'}`);
+            console.error(e);
+        } finally {
+            setError(null);
+            setEmailError("");
+        }
     };
+
 
     // Height estimate: sign up adds two fields ~70-90px each + spacing
     // You can fine-tune min-h-[540px] based on your actual field heights
@@ -49,7 +102,10 @@ function SignIn() {
                     {/* Toggle Buttons */}
                     <div className="flex bg-gray-100 rounded-xl p-1 mb-6">
                         <button
-                            onClick={() => setIsLogin(true)}
+                            onClick={() => {
+                                setIsLogin(true);
+                                setEmailError("");
+                            }}
                             className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all duration-200 ${isLogin
                                 ? "bg-white text-blue-600 shadow-sm"
                                 : "text-gray-600 hover:text-gray-900"
@@ -59,7 +115,10 @@ function SignIn() {
                             Sign In
                         </button>
                         <button
-                            onClick={() => setIsLogin(false)}
+                            onClick={() => {
+                                setIsLogin(false);
+                                setEmailError("");
+                            }}
                             className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all duration-200 ${!isLogin
                                 ? "bg-white text-blue-600 shadow-sm"
                                 : "text-gray-600 hover:text-gray-900"
@@ -69,6 +128,15 @@ function SignIn() {
                             Sign Up
                         </button>
                     </div>
+
+                    {error && (
+                        <div className="mb-4 p-3 rounded-lg bg-red-100 border border-red-300 text-red-700 text-sm flex items-center gap-2">
+                            <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M21 12A9 9 0 1 1 3 12a9 9 0 0 1 18 0Z" />
+                            </svg>
+                            {error}
+                        </div>
+                    )}
 
                     {/* Form */}
                     <form onSubmit={handleSubmit} className="space-y-4">
@@ -106,6 +174,11 @@ function SignIn() {
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Email Address
+                                {/* {!isLogin && (
+                                    <span className="text-xs text-gray-500 ml-2">
+                                        (must end with @mitsgwl.ac.in)
+                                    </span>
+                                )} */}
                             </label>
                             <div className="relative">
                                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -114,11 +187,15 @@ function SignIn() {
                                     name="email"
                                     value={formData.email}
                                     onChange={handleInputChange}
-                                    className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                                    placeholder="Enter your email"
+                                    className={`w-full pl-11 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${emailError ? 'border-red-500' : 'border-gray-300'
+                                        }`}
+                                    placeholder={isLogin ? "Enter your email" : "Enter your @mitsgwl.ac.in email"}
                                     required
                                 />
                             </div>
+                            {emailError && (
+                                <p className="text-red-500 text-xs mt-1">{emailError}</p>
+                            )}
                         </div>
 
                         {/* Password field */}
